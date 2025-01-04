@@ -1,6 +1,7 @@
 import 'dart:io'; // For Process class to execute shell commands
 import 'package:flutter/material.dart';
 import 'package:network_info_plus/network_info_plus.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 void main() {
   runApp(const BroadcastIPApp());
@@ -79,12 +80,30 @@ class _BroadcastIPAppState extends State<BroadcastIPApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('Local IP Finder')),
-        body: Center(
-          child: Text(
-            'Local IP: $_localIP',
-            style: const TextStyle(fontSize: 24),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Divider(),
+              Container(
+                margin: const EdgeInsets.only(bottom: 16.0),
+                child: Text(
+                  'Your Local IP is: \n$_localIP:3000',
+                  style: const TextStyle(fontSize: 24),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 16.0),
+                child: QrImageView(
+                  data: '$_localIP:3000',
+                  version: QrVersions.auto,
+                  size: 200.0,
+                ),
+              ),
+            ],
           ),
-        ),
+        )
       ),
     );
   }
