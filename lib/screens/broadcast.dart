@@ -13,6 +13,8 @@ class BroadcastScreen extends StatefulWidget {
 
 class _BroadcastScreenState extends State<BroadcastScreen> {
   String? _localIP = "Fetching...";
+  String _httpMode = "https";
+  String _port = "80";
   final NetworkInfo _networkInfo = NetworkInfo(); // Initialize NetworkInfo
 
   @override
@@ -84,17 +86,51 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
             Container(
               margin: const EdgeInsets.only(bottom: 16.0),
               child: Text(
-                'Your Local IP is: \n$_localIP:3000',
+                'Your Local IP is: \n$_httpMode://$_localIP:$_port',
                 style: const TextStyle(fontSize: 24),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 16.0),
               child: QrImageView(
-                data: '$_localIP:3000',
+                data: '$_httpMode://$_localIP:$_port',
                 version: QrVersions.auto,
                 size: 200.0,
               ),
+            ),
+            Row (
+              children: [
+                SizedBox(
+                  width: 100.0,
+                  child: DropdownButton<String>(
+                    value: _httpMode,
+                    items: [
+                      DropdownMenuItem(value: "http", child: Text("HTTP")),
+                      DropdownMenuItem(value: "https", child: Text("HTTPS")),
+                    ],
+                    onChanged: (newValue) {
+                      setState(() {
+                        _httpMode = newValue!;
+                      });
+                    },
+                  )
+                ),
+                const SizedBox(width: 16),
+                SizedBox(
+                  width: 100.0,
+                  child: 
+                  TextField(
+                  decoration: const InputDecoration(
+                    labelText: "Port",
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (text) {
+                    setState(() {
+                      _port = text; // Update state with input value
+                    });
+                  },
+                )),
+              ],
             ),
           ],
         ),
