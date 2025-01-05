@@ -14,7 +14,8 @@ class BroadcastScreen extends StatefulWidget {
 class _BroadcastScreenState extends State<BroadcastScreen> {
   String? _localIP = "Fetching...";
   String _httpMode = "https";
-  String _port = "80";
+  String _port = "";
+  String _finalUrl = "Loading...";
   final NetworkInfo _networkInfo = NetworkInfo(); // Initialize NetworkInfo
 
   @override
@@ -31,20 +32,31 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
       if (wifiIP != null) {
         setState(() {
           _localIP = wifiIP;
+          updateFinalUrl();
         });
       } else {
         // fallback to platform-specific logic
         String? ipAddress = await _getPlatformSpecificIP();
         setState(() {
           _localIP = ipAddress ?? "Could not fetch local IP.";
+          updateFinalUrl();
         });
       }
     } catch (e) {
       setState(() {
         _localIP = "Error: $e";
+        updateFinalUrl();
       });
     }
   }
+
+
+  void updateFinalUrl() {
+    setState(() {
+      _finalUrl = '$_httpMode://$_localIP';
+      if (_port != "") _finalUrl += ':$_port';
+    });
+}
 
   // Platform-specific logic to get the IP address
   Future<String?> _getPlatformSpecificIP() async {
@@ -86,50 +98,68 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
             Container(
               margin: const EdgeInsets.only(bottom: 16.0),
               child: Text(
-                'Your Local IP is: \n$_httpMode://$_localIP:$_port',
+                'Your Local IP is: \n$_finalUrl',
                 style: const TextStyle(fontSize: 24),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 16.0),
               child: QrImageView(
-                data: '$_httpMode://$_localIP:$_port',
+                data: _finalUrl,
                 version: QrVersions.auto,
                 size: 200.0,
               ),
             ),
             Row (
               children: [
-                SizedBox(
-                  width: 100.0,
-                  child: DropdownButton<String>(
-                    value: _httpMode,
-                    items: [
-                      DropdownMenuItem(value: "http", child: Text("HTTP")),
-                      DropdownMenuItem(value: "https", child: Text("HTTPS")),
-                    ],
-                    onChanged: (newValue) {
-                      setState(() {
-                        _httpMode = newValue!;
-                      });
-                    },
-                  )
+                const SizedBox(width: 8),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Protocol"), // Label for the dropdown
+                    SizedBox(
+                      width: 100.0, // Fix the width of the dropdown
+                      child: DropdownButton<String>(
+                        value: _httpMode,
+                        items: [
+                          DropdownMenuItem(value: "http", child: Text("HTTP")),
+                          DropdownMenuItem(value: "https", child: Text("HTTPS")),
+                        ],
+                        onChanged: (newValue) {
+                          setState(() {
+                            _httpMode = newValue!;
+                            updateFinalUrl();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
+
                 const SizedBox(width: 16),
-                SizedBox(
-                  width: 100.0,
-                  child: 
-                  TextField(
-                  decoration: const InputDecoration(
-                    labelText: "Port",
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (text) {
-                    setState(() {
-                      _port = text; // Update state with input value
-                    });
-                  },
-                )),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Add port?"), // Label for the dropdown
+                    SizedBox(
+                      width: 100.0,
+                      child: 
+                      TextField(
+                      decoration: const InputDecoration(
+                        // labelText: "Add port?",
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (text) {
+                        setState(() {
+                          _port = text;
+                          updateFinalUrl();
+                        });
+                      },
+                    )),
+                  ],
+                ),
               ],
             ),
           ],
