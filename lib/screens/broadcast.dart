@@ -1,8 +1,9 @@
 import 'dart:io'; // For Process class to execute shell commands
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BroadcastScreen extends StatefulWidget {
   const BroadcastScreen({Key? key}) : super(key: key);
@@ -16,12 +17,15 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
   String _httpMode = "https";
   String _port = "";
   String _finalUrl = "Loading...";
+  late TextEditingController _portController;
   final NetworkInfo _networkInfo = NetworkInfo(); // Initialize NetworkInfo
 
   @override
   void initState() {
     super.initState();
+    _portController = TextEditingController(text: _port); 
     _getLocalIP();
+    _loadUserPreferences();
   }
 
   Future<void> _getLocalIP() async {
@@ -50,12 +54,32 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
     }
   }
 
-
   void updateFinalUrl() {
     setState(() {
       _finalUrl = '$_httpMode://$_localIP';
       if (_port != "") _finalUrl += ':$_port';
     });
+    _saveHttpMode(_httpMode);
+    _savePort(_port);
+  }
+
+  void _saveHttpMode(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('httpMode', value);
+  }
+
+  void _savePort(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('port', value);
+  }
+
+void _loadUserPreferences() async {
+  final prefs = await SharedPreferences.getInstance();
+  setState(() {
+    _httpMode = prefs.getString('httpMode') ?? "https";
+    _port = prefs.getString('port') ?? "";
+    _portController.text = _port; 
+  });
 }
 
   // Platform-specific logic to get the IP address
@@ -146,18 +170,24 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
                     SizedBox(
                       width: 100.0,
                       child: 
-                      TextField(
-                      decoration: const InputDecoration(
-                        // labelText: "Add port?",
-                        border: OutlineInputBorder(),
-                      ),
-                      onChanged: (text) {
-                        setState(() {
-                          _port = text;
-                          updateFinalUrl();
-                        });
-                      },
-                    )),
+                        TextField(
+                          controller: _portController,
+                          decoration: const InputDecoration(
+                            // labelText: "Add port?",
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.number, // Shows a numeric keyboard
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          onChanged: (text) {
+                            setState(() {
+                              _port = text;
+                              updateFinalUrl();
+                            });
+                          },
+                        )
+                    ),
                   ],
                 ),
               ],
