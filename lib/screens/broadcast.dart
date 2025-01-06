@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BroadcastScreen extends StatefulWidget {
   const BroadcastScreen({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
     await prefs.setString('port', value);
   }
 
-void _loadUserPreferences() async {
+  void _loadUserPreferences() async {
   final prefs = await SharedPreferences.getInstance();
   setState(() {
     _httpMode = prefs.getString('httpMode') ?? "https";
@@ -82,6 +83,14 @@ void _loadUserPreferences() async {
   });
 }
 
+  void _launchURL(String url) async {
+    final Uri uri = Uri.parse(url); 
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   // Platform-specific logic to get the IP address
   Future<String?> _getPlatformSpecificIP() async {
     try {
@@ -125,13 +134,28 @@ void _loadUserPreferences() async {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const Divider(),
+
+            Text(
+              'Your Local IP',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color.fromARGB(255, 36, 89, 168)
+              ),
+            ),
+
             Container(
               margin: const EdgeInsets.only(bottom: 24.0),
-              child: Text(
-                'Your Local IP is: \n$_finalUrl',
-                style: const TextStyle(fontSize: 24),
-              ),
+              child: InkWell(
+                onTap: () => _launchURL(_finalUrl), // URL to open
+                child: Text(
+                  _finalUrl,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    // decoration: TextDecoration.underline, 
+                  )
+                ),
+              ),              
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 28.0),
@@ -148,7 +172,10 @@ void _loadUserPreferences() async {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Protocol"),
+                    const Text(
+                      "Protocol", 
+                      style: TextStyle(color: Color.fromARGB(255, 36, 89, 168))
+                    ),
                     SizedBox(
                       width: 85.0,
                       height: 60.0,
@@ -174,7 +201,10 @@ void _loadUserPreferences() async {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Add port?"), // Label for the dropdown
+                    const Text(
+                      "Add port?", 
+                      style: TextStyle(color: Color.fromARGB(255, 36, 89, 168))
+                    ),
                     SizedBox(
                       width: 75.0,
                       child: 
