@@ -112,22 +112,29 @@ void _loadUserPreferences() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: const Text('Local IP Finder')),
+      appBar: AppBar(
+        title: const Text(
+          'Broadcast my IP!',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color.fromARGB(255, 36, 89, 168),
+        // iconTheme: const IconThemeData(color: Colors.white),
+      ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // const Divider(),
             Container(
-              margin: const EdgeInsets.only(bottom: 16.0),
+              margin: const EdgeInsets.only(bottom: 24.0),
               child: Text(
                 'Your Local IP is: \n$_finalUrl',
                 style: const TextStyle(fontSize: 24),
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 16.0),
+              margin: const EdgeInsets.only(bottom: 28.0),
               child: QrImageView(
                 data: _finalUrl,
                 version: QrVersions.auto,
@@ -141,9 +148,10 @@ void _loadUserPreferences() async {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Protocol"), // Label for the dropdown
+                    const Text("Protocol"),
                     SizedBox(
-                      width: 100.0, // Fix the width of the dropdown
+                      width: 85.0,
+                      height: 60.0,
                       child: DropdownButton<String>(
                         value: _httpMode,
                         items: [
@@ -157,24 +165,24 @@ void _loadUserPreferences() async {
                           });
                         },
                       ),
-                    ),
+                    )
                   ],
                 ),
 
-                const SizedBox(width: 16),
+                const SizedBox(width: 24),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Add port?"), // Label for the dropdown
                     SizedBox(
-                      width: 100.0,
+                      width: 75.0,
                       child: 
                         TextField(
                           controller: _portController,
                           decoration: const InputDecoration(
                             // labelText: "Add port?",
-                            border: OutlineInputBorder(),
+                            // border: OutlineInputBorder(),
                           ),
                           keyboardType: TextInputType.number, // Shows a numeric keyboard
                           inputFormatters: [
