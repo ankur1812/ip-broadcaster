@@ -135,36 +135,48 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Text(
-              'Your Local IP',
-              style: const TextStyle(
-                fontSize: 16,
-                color: Color.fromARGB(255, 36, 89, 168)
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min, // Adjusts the size to fit content
+              children: [
+                Icon(Icons.computer, color: Color.fromARGB(255, 36, 89, 168), size: 16),
+                SizedBox(width: 4), // Add spacing between icon and text
+                Text(
+                  'Your local IP',
+                  style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 36, 89, 168)),
+                ),
+              ],
             ),
+            InkWell(
+              onTap: () => _launchURL(_finalUrl), // URL to open
+              child: Text(
+                _finalUrl,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  // decoration: TextDecoration.underline, 
+                )
+              ),
+            ),              
+          const SizedBox(height: 24),
+
+            Text( 'Scan code to connect', style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 36, 89, 168)), ),
+            const SizedBox(height: 6),
 
             Container(
-              margin: const EdgeInsets.only(bottom: 24.0),
-              child: InkWell(
-                onTap: () => _launchURL(_finalUrl), // URL to open
-                child: Text(
-                  _finalUrl,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    // decoration: TextDecoration.underline, 
-                  )
-                ),
-              ),              
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 28.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color.fromARGB(255, 36, 89, 168),
+                  width: 2.0,
+                )
+              ),
+              // margin: const EdgeInsets.only(bottom: 28.0),
               child: QrImageView(
                 data: _finalUrl,
                 version: QrVersions.auto,
                 size: 200.0,
               ),
             ),
+            const SizedBox(height: 28),
             Row (
               children: [
                 const SizedBox(width: 8),
@@ -172,14 +184,25 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Protocol", 
-                      style: TextStyle(color: Color.fromARGB(255, 36, 89, 168))
+                    Row(
+                      mainAxisSize: MainAxisSize.min, // Adjusts the size to fit content
+                      children: [
+                        Icon(Icons.security, color: Color.fromARGB(255, 36, 89, 168), size: 16),
+                        SizedBox(width: 4), // Add spacing between icon and text
+                        Text(
+                          'Protocol',
+                          style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 36, 89, 168)),
+                        ),
+                      ],
                     ),
+
                     SizedBox(
-                      width: 85.0,
-                      height: 60.0,
-                      child: DropdownButton<String>(
+                      width: 110.0,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10), // Adjust vertical padding
+                          // border: OutlineInputBorder(),
+                        ),
                         value: _httpMode,
                         items: [
                           DropdownMenuItem(value: "http", child: Text("HTTP")),
@@ -191,7 +214,7 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
                             updateFinalUrl();
                           });
                         },
-                      ),
+                      )
                     )
                   ],
                 ),
@@ -201,12 +224,19 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Add port?", 
-                      style: TextStyle(color: Color.fromARGB(255, 36, 89, 168))
+                    Row(
+                      mainAxisSize: MainAxisSize.min, // Adjusts the size to fit content
+                      children: [
+                        Icon(Icons.power, color: Color.fromARGB(255, 36, 89, 168), size: 16),
+                        SizedBox(width: 4), // Add spacing between icon and text
+                        Text(
+                          'Port',
+                          style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 36, 89, 168)),
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      width: 75.0,
+                      width: 85.0,
                       child: 
                         TextField(
                           controller: _portController,
