@@ -21,7 +21,7 @@ import 'screens/broadcast.dart';
 
 void windowSizeUpdate () async {
   // Implements resize unctionality using package:window_size
-  setWindowTitle("Broadcast my IP");
+  setWindowTitle("IP Relay");
   setWindowMinSize(const Size(440, 700));
   setWindowMaxSize(const Size(440, 700));
 }
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Find My IP',
+      title: 'IP Relay',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
         useMaterial3: true,

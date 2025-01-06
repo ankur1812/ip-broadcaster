@@ -123,7 +123,7 @@ class _BroadcastScreenState extends State<BroadcastScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Broadcast my IP!',
+          'IP Relay',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromARGB(255, 36, 89, 168),
