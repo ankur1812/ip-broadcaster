@@ -22,8 +22,8 @@ import 'screens/broadcast.dart';
 void windowSizeUpdate () async {
   // Implements resize unctionality using package:window_size
   setWindowTitle("Broadcast my IP");
-  setWindowMinSize(const Size(600, 700)); // Minimum size
-  setWindowMaxSize(const Size(600, 700)); // Maximum size
+  setWindowMinSize(const Size(440, 700));
+  setWindowMaxSize(const Size(440, 700));
 }
 
 void main() async {
