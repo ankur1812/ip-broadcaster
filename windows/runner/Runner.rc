@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "broadcast_my_ip" "\0"
+            VALUE "FileDescription", "ip_relay" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "broadcast_my_ip" "\0"
+            VALUE "InternalName", "ip_relay" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "broadcast_my_ip.exe" "\0"
-            VALUE "ProductName", "broadcast_my_ip" "\0"
+            VALUE "OriginalFilename", "ip_relay.exe" "\0"
+            VALUE "ProductName", "ip_relay" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
