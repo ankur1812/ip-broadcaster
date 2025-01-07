@@ -1,6 +1,6 @@
-# ip_broadcaster
+# IP Relay
 
-A new Flutter project.
+A Flutter project to find and broadcast system's IP
 
 ## Getting Started
 
@@ -29,4 +29,12 @@ samples, guidance on mobile development, and a full API reference.
 flutter run -d windows  # For Windows
 flutter run -d macos    # For macOS
 flutter run -d linux    # For Linux
+```
+
+### 3. Building the project
+
+The app meta can be configured the `CMakeLists.txt` files for linux / macOS / windows.
+
+```
+flutter build linux    # For Linux
 ```
