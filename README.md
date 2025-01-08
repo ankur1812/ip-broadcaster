@@ -1,24 +1,29 @@
 # IP Relay
 
-IP Relay is a tool built using flutter to broadcast your device's IP address for easier mobile testing and peer programming.
+IP Relay is a tool to easily retrieve and share your device's IP address for easier mobile testing and peer programming.
+
+<b> <u>Download the tool using below links: </u> </b>
+<br>
+
+<a href="https://github.com/ankur1812/ip-relay/raw/refs/heads/main/app-bundles/linux/ip_relay_v0.0.1.tar.xz" download>
+  Linux
+</a>
+| 
+<a href="https://github.com/ankur1812/ip-relay/raw/refs/heads/main/app-bundles/win/ip_relay_v0.0.1.zip" download>
+  Windows
+</a>
+| 
+<a href="#"> MacOS </a>
+
+<br>
 
 <table>
   <tr>
-    <td>
-      <img src="./app-bundles/app-screenshot.png" height="320" />
-    </td>
-    <td>
-      Download the tool using below links:  
-      <br><br>
-      <a href="https://github.com/ankur1812/ip-relay/raw/refs/heads/main/app-bundles/linux/ip_relay_v0.0.1.tar.xz" download>
-        Linux
-      </a>
-      <br> 
-      <a href="https://github.com/ankur1812/ip-relay/raw/refs/heads/main/app-bundles/win/ip_relay_v0.0.1.zip" download>
-        Windows
-      </a>
-      <br>
-      <a href="#"> MacOS </a>
+    <td style="width:50%">
+      <img src="./assets/app-screenshot.png" height="200px">
+    </td>t
+    <td style="width:50%">
+      <img src="./assets/app-desktop.png" height=200px" />
     </td>
   </tr>
 </table>
@@ -65,6 +70,8 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 This project was initialized using the `flutter create` command.
-`flutter create --platforms=windows,macos,linux ip_broadcaster`
+```
+flutter create --platforms=windows,macos,linux ip_broadcaster
+```
 
 
