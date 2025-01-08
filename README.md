@@ -5,7 +5,7 @@ IP Relay is a tool built using flutter to broadcast your device's IP address for
 <table>
   <tr>
     <td>
-      <img src="./app-bundles/app_screenshot.png" height="320" />
+      <img src="./app-bundles/app-screenshot.png" height="320" />
     </td>
     <td>
       Download the tool using below links:  
@@ -18,7 +18,7 @@ IP Relay is a tool built using flutter to broadcast your device's IP address for
         Windows
       </a>
       <br>
-      <a href="javascript(void);"> MacOS </a>
+      <a href="#"> MacOS </a>
     </td>
   </tr>
 </table>
