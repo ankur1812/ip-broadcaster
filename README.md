@@ -21,7 +21,7 @@ IP Relay is a tool to easily retrieve and share your device's IP address for eas
   <tr>
     <td style="width:50%">
       <img src="./assets/app-screenshot.png" height="200px">
-    </td>t
+    </td>
     <td style="width:50%">
       <img src="./assets/app-desktop.png" height=200px" />
     </td>
