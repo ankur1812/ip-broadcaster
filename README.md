@@ -13,7 +13,7 @@ IP Relay is a tool to easily retrieve and share your device's IP address for eas
   Windows
 </a>
 | 
-<a href="#"> MacOS </a>
+<a href="#"> M̶a̶c̶O̶S̶ </a>
 
 <br>
 
